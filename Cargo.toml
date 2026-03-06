@@ -1,0 +1,12 @@
+[package]
+name = "jisho-scraper"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+anyhow = "1.0.97"
+clap = { version = "4.5.32", features = ["derive"] }
+reqwest = { version = "0.12.14", default-features = false, features = ["blocking", "brotli", "deflate", "gzip", "rustls-tls"] }
+scraper = "0.23.1"
+serde = { version = "1.0.219", features = ["derive"] }
+serde_json = "1.0.140"
