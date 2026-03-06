@@ -20,13 +20,25 @@ cargo build --release
 Fetch a fixed number of pages and return *all* entries as JSON:
 
 ```bash
-cargo run -- --level n5 --pages 1
+cargo run -- --level n5 --pages 1 --format entries
 ```
 
 Collect *only* entries that have an example sentence, until you reach a target count:
 
 ```bash
-cargo run -- --level n5 --target 50
+cargo run -- --level n5 --target 50 --format entries
+```
+
+### Sensei cloze deck export
+
+Emit a Sensei cloze deck JSON (ready to drop into `sensei/content/cloze/decks/<deck_id>.json`):
+
+```bash
+cargo run -- \
+  --level n5 \
+  --format cloze-deck \
+  --deck-id n5-vocab-1 \
+  --target 50
 ```
 
 Useful flags:
@@ -37,6 +49,10 @@ Useful flags:
 - `--target`: keep scraping until at least this many entries with `example != null`
 - `--max-pages`: safety cap when using `--target` (default: `100`)
 - `--delay-ms`: delay between requests (default: `500`)
+- `--seed`: deterministic sampling/order (for `--format cloze-deck`)
+- `--max-cards`: cap cards output (for `--format cloze-deck`)
+- `--bank-from`: `examples|all` (for `--format cloze-deck`)
+- `--require-word-in-example`: only keep entries where the word appears in the example sentence (default: `true`)
 
 ## Output
 
@@ -61,4 +77,3 @@ The CLI prints a JSON array of objects like:
 
 - This is HTML scraping; selectors may break if Jisho changes their markup.
 - Be polite: keep a delay between requests and avoid scraping more than you need.
-
